@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>受け取りました</h1>
+  <p>input_test: {{ response.input_test }}</p>
+  <p>input_test2: {{ response.input_test2 }}</p>
+  <a href="{% url 'form:index' %}">indexページへ戻る</a>
+{% endblock content %}
