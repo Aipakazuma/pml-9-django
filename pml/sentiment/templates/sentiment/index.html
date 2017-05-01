@@ -4,7 +4,7 @@
 
 <h2>映画のレビューを分析しますー</h2>
 
-<form action="" method="post">
+<form action="{% url 'sentiment:index' %}" method="post">
   {% csrf_token %}
   {{ form.as_p}}
   <button type="submit">送信</button>

@@ -10,7 +10,14 @@ class IndexView(FormView):
 
 
     def form_valid(self, form):
-        return render(self.request, 'sentiment/confirm.html', {'response': self.request.POST})
+        # predictionの実行
+        return render(self.request,
+                    'sentiment/confirm.html',
+                    {
+                        'response': self.request.POST,
+                        'prediction': '',
+                        'probabillity': ''
+                    })
 
 
 def registry(request):
@@ -21,7 +28,8 @@ def registry(request):
     form = ReviewForm(request.POST)
     if form.is_valid():
         review = form.save(commit=False)
-        review.created = timezone()
+        review.sentiment = 0
+        review.created = timezone.now()
         review.save()
         return render(request, 'sentiment/completed.html', {'review': review})
     return render(request, 'sentiment/index.html', {'form': form})

@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+
+{% block content %}
+<h3>Your movie review:</h3>
+<div>{{ response.review_text }}</div>
+
+<h3>Prediction:</h3>
+<div>This movie review is <strong>{{ prediction }}</strong>
+   (probability: {{ probability }}%).</div>
+
+<div id='button'>
+    <form action="{% url 'sentiment:registry' %}" method="post">
+      {% csrf_token %}
+      <button type=submit value='Correct' name='feedback_button'>Correct</button>
+      <button type=submit value='Incorrect' name='feedback_button'>Incorrect</button>
+      <input type=hidden value='{{ prediction }}' name='prediction'>
+      <input type=hidden value='{{ response.review_text }}' name='review_text'>
+    </form>
+</div>
+
+<a role="button" href="{% url 'sentiment:index' %}">Submit another review.</a>
+
+{% endblock content %}
